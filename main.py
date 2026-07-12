@@ -73,6 +73,10 @@ with open(fasta_filename, "r") as file:
 # Glue all collected lines into one continuous string with no separator
 clean_sequence = "".join(sequence_lines)
 
+# Confirm the file was successfully read, and report the sequence length
+print("File successfully read and loaded:", fasta_filename)
+print("Total sequence length:", len(clean_sequence), "bases")
+
 
 # Task 2: Calculate GC content
 # -----------------------------------------------
