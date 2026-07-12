@@ -97,6 +97,13 @@ print("GC Content: {:.2f}%".format(gc_content))
 
 # Task 3: Extract the CDS (Coding DNA Sequence)
 # -----------------------------------------------
+print("--- Running Task 3: CDS Extraction ---")
+
+# The biological coding sequence runs from position 88 to 1602 (1-based).
+# Python string indices are 0-based, so we slice from index 87 to 1602.
+cds_sequence = clean_sequence[87:1602]
+
+print("CDS sequence isolated. Length:", len(cds_sequence), "bases")
 
 
 # Task 4: Translate CDS to protein
