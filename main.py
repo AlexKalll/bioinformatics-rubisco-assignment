@@ -52,8 +52,13 @@ codon_table = {
     'GGT': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
 }
 
+
+# =====================================================================
 # Task 1: Read and clean the FASTA sequence file
-# -----------------------------------------------
+# =====================================================================
+print("=" * 60)
+print("Task 1: Reading FASTA File")
+print("=" * 60)
 
 # The name of our FASTA file containing the cDNA sequence
 fasta_filename = "rubisco.fasta"
@@ -75,12 +80,16 @@ clean_sequence = "".join(sequence_lines)
 
 # Confirm the file was successfully read, and report the sequence length
 print("File successfully read and loaded:", fasta_filename)
-print("Total sequence length:", len(clean_sequence), "bases")
+print("Total sequence length:           ", len(clean_sequence), "bases")
 
 
+# =====================================================================
 # Task 2: Calculate GC content
-# -----------------------------------------------
-print("--- Running Task 2: GC Content ---")
+# =====================================================================
+print()
+print("=" * 60)
+print("Task 2: GC Content")
+print("=" * 60)
 
 # Count the number of G and C nucleotides using the .count() string method
 g_count = clean_sequence.count("G")
@@ -90,14 +99,18 @@ c_count = clean_sequence.count("C")
 total_bases = len(clean_sequence)
 gc_content = ((g_count + c_count) / total_bases) * 100
 
-print("G count:", g_count)
-print("C count:", c_count)
+print("G count:    ", g_count)
+print("C count:    ", c_count)
 print("GC Content: {:.2f}%".format(gc_content))
 
 
+# =====================================================================
 # Task 3: Extract the CDS (Coding DNA Sequence)
-# -----------------------------------------------
-print("--- Running Task 3: CDS Extraction ---")
+# =====================================================================
+print()
+print("=" * 60)
+print("Task 3: CDS Extraction")
+print("=" * 60)
 
 # The biological coding sequence runs from position 88 to 1602 (1-based).
 # Python string indices are 0-based, so we slice from index 87 to 1602.
@@ -106,9 +119,13 @@ cds_sequence = clean_sequence[87:1602]
 print("CDS sequence isolated. Length:", len(cds_sequence), "bases")
 
 
+# =====================================================================
 # Task 4: Translate CDS to protein
-# -----------------------------------------------
-print("--- Running Task 4: Translation ---")
+# =====================================================================
+print()
+print("=" * 60)
+print("Task 4: Translation")
+print("=" * 60)
 
 protein_sequence = []  # Initiate an empty list to collect amino acids
 
@@ -133,4 +150,6 @@ for i in range(0, len(cds_sequence), 3):
 final_protein = "".join(protein_sequence)
 
 print("Final Protein Length:", len(final_protein), "amino acids.")
-print("Protein Sequence:", final_protein)
+print("Protein Sequence:")
+print(final_protein)
+print("=" * 60)
