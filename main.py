@@ -70,6 +70,9 @@ with open(fasta_filename, "r") as file:
         if not line.startswith(">"):
             sequence_lines.append(line)
 
+# Glue all collected lines into one continuous string with no separator
+clean_sequence = "".join(sequence_lines)
+
 
 # Task 2: Calculate GC content
 # -----------------------------------------------
