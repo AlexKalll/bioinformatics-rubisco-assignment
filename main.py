@@ -128,3 +128,9 @@ for i in range(0, len(cds_sequence), 3):
         break
 
     protein_sequence.append(amino_acid)
+
+# Join the amino acid list into a single protein string
+final_protein = "".join(protein_sequence)
+
+print("Final Protein Length:", len(final_protein), "amino acids.")
+print("Protein Sequence:", final_protein)
