@@ -56,6 +56,9 @@ codon_table = {
 # =====================================================================
 # Task 1: Read and clean the FASTA sequence file
 # =====================================================================
+# FASTA is a standard bioinformatics text format.
+# The first line (header) starts with '>' and contains metadata.
+# All subsequent lines contain the actual nucleotide sequence.
 print("=" * 60)
 print("Task 1: Reading FASTA File")
 print("=" * 60)
@@ -63,19 +66,24 @@ print("=" * 60)
 # The name of our FASTA file containing the cDNA sequence
 fasta_filename = "rubisco.fasta"
 
-# Initialise an empty list to collect each sequence line
+# Initialise an empty list to collect each sequence line.
+# We will append one line at a time as we read through the file.
 sequence_lines = []
 
-# Open the file in read mode and iterate over every line
+# open() takes two arguments: the filename, and the mode ('r' = read).
+# Using 'with' ensures the file is automatically closed after reading.
 with open(fasta_filename, "r") as file:
     for line in file:
-        # Remove leading/trailing whitespace (including newline characters)
+        # .strip() removes invisible whitespace at both ends of the line,
+        # including '\n' (newline) characters that Python reads from the file.
         line = line.strip()
-        # Skip the FASTA header line — it begins with '>'
+        # The header line starts with '>'. We skip it because it is
+        # descriptive metadata, not part of the nucleotide sequence.
         if not line.startswith(">"):
             sequence_lines.append(line)
 
-# Glue all collected lines into one continuous string with no separator
+# "".join() concatenates all strings in the list using "" as the separator,
+# producing one unbroken string of nucleotide characters.
 clean_sequence = "".join(sequence_lines)
 
 # Confirm the file was successfully read, and report the sequence length
@@ -86,16 +94,20 @@ print("Total sequence length:           ", len(clean_sequence), "bases")
 # =====================================================================
 # Task 2: Calculate GC content
 # =====================================================================
+# GC content is the percentage of nucleotides in a DNA sequence that
+# are either Guanine (G) or Cytosine (C). It is a fundamental measure
+# used to characterise genomes and assess sequence quality.
 print()
 print("=" * 60)
 print("Task 2: GC Content")
 print("=" * 60)
 
-# Count the number of G and C nucleotides using the .count() string method
+# .count() is a built-in string method that returns how many times
+# a given character (or substring) appears in the string.
 g_count = clean_sequence.count("G")
 c_count = clean_sequence.count("C")
 
-# GC percentage formula: ((G + C) / total bases) * 100
+# GC % = ((number of G + number of C) / total number of bases) × 100
 total_bases = len(clean_sequence)
 gc_content = ((g_count + c_count) / total_bases) * 100
 
@@ -107,13 +119,17 @@ print("GC Content: {:.2f}%".format(gc_content))
 # =====================================================================
 # Task 3: Extract the CDS (Coding DNA Sequence)
 # =====================================================================
+# The CDS is the portion of the mRNA that is actually translated into
+# protein. It begins at the start codon (ATG) and ends at a stop codon.
+# We isolate it by slicing the full sequence using known coordinates.
 print()
 print("=" * 60)
 print("Task 3: CDS Extraction")
 print("=" * 60)
 
-# The biological coding sequence runs from position 88 to 1602 (1-based).
-# Python string indices are 0-based, so we slice from index 87 to 1602.
+# The biological coordinates are 1-based (position 88 to 1602).
+# Python uses 0-based indexing, so position 88 becomes index 87.
+# The end index 1602 is exclusive in Python slicing, which is correct here.
 cds_sequence = clean_sequence[87:1602]
 
 print("CDS sequence isolated. Length:", len(cds_sequence), "bases")
@@ -122,6 +138,9 @@ print("CDS sequence isolated. Length:", len(cds_sequence), "bases")
 # =====================================================================
 # Task 4: Translate CDS to protein
 # =====================================================================
+# Translation converts a nucleotide sequence into an amino acid sequence.
+# The ribosome reads codons (groups of 3 nucleotides) from the CDS and
+# maps each codon to an amino acid using the genetic code.
 print()
 print("=" * 60)
 print("Task 4: Translation")
@@ -129,18 +148,19 @@ print("=" * 60)
 
 protein_sequence = []  # Initiate an empty list to collect amino acids
 
-# Read the CDS in steps of 3 (one codon at a time)
+# range(0, length, 3) generates start positions: 0, 3, 6, 9 ...
+# Each iteration extracts one codon of exactly 3 characters.
 for i in range(0, len(cds_sequence), 3):
     codon = cds_sequence[i:i + 3]
 
-    # Only process complete codons (length 3)
+    # Discard any incomplete codon at the very end of the sequence
     if len(codon) < 3:
         break
 
-    # Look up the codon in the dictionary
+    # .get(codon, "?") looks up the codon; returns "?" if not found
     amino_acid = codon_table.get(codon, "?")
 
-    # Stop translation when a STOP codon is encountered
+    # A STOP codon signals the ribosome to release the protein chain
     if amino_acid == "STOP":
         break
 
