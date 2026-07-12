@@ -55,6 +55,21 @@ codon_table = {
 # Task 1: Read and clean the FASTA sequence file
 # -----------------------------------------------
 
+# The name of our FASTA file containing the cDNA sequence
+fasta_filename = "rubisco.fasta"
+
+# Initialise an empty list to collect each sequence line
+sequence_lines = []
+
+# Open the file in read mode and iterate over every line
+with open(fasta_filename, "r") as file:
+    for line in file:
+        # Remove leading/trailing whitespace (including newline characters)
+        line = line.strip()
+        # Skip the FASTA header line — it begins with '>'
+        if not line.startswith(">"):
+            sequence_lines.append(line)
+
 
 # Task 2: Calculate GC content
 # -----------------------------------------------
