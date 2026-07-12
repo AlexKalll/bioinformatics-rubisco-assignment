@@ -108,3 +108,23 @@ print("CDS sequence isolated. Length:", len(cds_sequence), "bases")
 
 # Task 4: Translate CDS to protein
 # -----------------------------------------------
+print("--- Running Task 4: Translation ---")
+
+protein_sequence = []  # Initiate an empty list to collect amino acids
+
+# Read the CDS in steps of 3 (one codon at a time)
+for i in range(0, len(cds_sequence), 3):
+    codon = cds_sequence[i:i + 3]
+
+    # Only process complete codons (length 3)
+    if len(codon) < 3:
+        break
+
+    # Look up the codon in the dictionary
+    amino_acid = codon_table.get(codon, "?")
+
+    # Stop translation when a STOP codon is encountered
+    if amino_acid == "STOP":
+        break
+
+    protein_sequence.append(amino_acid)
