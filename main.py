@@ -80,6 +80,19 @@ print("Total sequence length:", len(clean_sequence), "bases")
 
 # Task 2: Calculate GC content
 # -----------------------------------------------
+print("--- Running Task 2: GC Content ---")
+
+# Count the number of G and C nucleotides using the .count() string method
+g_count = clean_sequence.count("G")
+c_count = clean_sequence.count("C")
+
+# GC percentage formula: ((G + C) / total bases) * 100
+total_bases = len(clean_sequence)
+gc_content = ((g_count + c_count) / total_bases) * 100
+
+print("G count:", g_count)
+print("C count:", c_count)
+print("GC Content: {:.2f}%".format(gc_content))
 
 
 # Task 3: Extract the CDS (Coding DNA Sequence)
