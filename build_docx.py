@@ -670,6 +670,6 @@ body(
 # ════════════════════════════════════════════════════════════════════════════
 # SAVE
 # ════════════════════════════════════════════════════════════════════════════
-out_path = r'D:\bioinformatic\bioinformatics-rubisco-assignment\Rubisco_cDNA_Analysis_Submission.docx'
+out_path = 'Rubisco_cDNA_Analysis_Submission.docx'
 doc.save(out_path)
 print(f"\nSaved: {out_path}")
